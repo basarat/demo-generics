@@ -1,7 +1,7 @@
 # Sorting arrays in TypeScript
 > In this lesson we cover all the details of how to sort a list of items using TypeScript.
 
-Each array in JavaScript has a sort method.
+Each array in JavaScript has a sort method which is designed to sort the array.
 
 ```js
 [].sort
@@ -24,7 +24,7 @@ console.log(arr);
 ```
 You will sadly code like this (the copy) is many beginner JavaScript code bases.
 *  Fortunately with TypeScript you can fix it by annotating the array as a ReadOnly array of string.
-*  And now any mutating methods like this `sort` method will no longer be allowed. 
+*  And now any mutating methods like this `sort` method will no longer be allowed.
 * You can now fix it easily by creating a copy of the array using array prototype slice.
 * And now the original array remains intact as people do array mutations.
 
@@ -42,7 +42,7 @@ foo.sort();
 console.log(foo);
 ```
 
-It gets sorted with unexpected results. Essentially as far as the comparison behaviour is concerned it is the same as 
+It gets sorted with unexpected results. Essentially as far as the comparison behaviour is concerned it is the same as
 
 ```js
 const foo = [1, 3, 22];
@@ -52,11 +52,24 @@ console.log(foo.map(x => x.toString());
 
 And you can see that alphabetically the string `20` should come before `3` just like in the dictionary "aa" will come before "b"
 
-* To properly compare anything other than strings you should pass in a comparer function to the sort method. 
-* The comparer function will be requested to compare any two values from the array as needed by the builtin sorting algorithm. 
-* It should return a negative number if a is less than b 
-* It should return 0 if they are equal 
+* To properly compare anything other than strings you should pass in a comparer function to the sort method.
+* The comparer function will be requested to compare any two values from the array as needed by the builtin sorting algorithm.
+* It should return a negative number if a is less than b
+* It should return 0 if they are equal
 * Or it should return a positive number if a is greater than b.
+
+```js
+const foo = [1, 3, 22];
+foo.sort((a, b) =>
+  /**
+   * if a<b return -ve num
+   * if a===b return 0
+   * if a>b return +ve num
+   */
+  a - b
+);
+console.log(foo);
+```
 
 * All of these requirements can be met for JavaScript numbers by simply returning the expression `a - b`.
 
@@ -66,7 +79,9 @@ foo.sort((a,b) => a - b);
 console.log(foo);
 ```
 
-Now that we know how to sort numbers and strings lets cover how to sort complex object. e.g. here we have a list of top movies along with their date of release
+So you will normally find this in conventional JavaScript code bases.
+
+Now that we know how to sort numbers and strings lets cover how to sort more complex object. e.g. here we have a list of top movies along with their date of release
 ```js
 const movies = [
   {
@@ -85,16 +100,16 @@ const movies = [
     name: 'The Dark Knight',
     year: 2008,
   },
-]
+];
 ```
 We can sort these by the year by comparing the years in the sort function
 ```js
-movies.sort((a,b) => a.year - b.year);
-console.log(movies);
+movies.sort((a, b) => a.year - b.year);
+console.log(movies.map(movie => movie.name));
 ```
 And you can see that it works as expected.
 
-* To sort items in descending order you can just swap your logic in the comparer function : 
+* To sort items in descending order you can just swap your logic in the comparer function :
 
 ```js
 movies.sort((a,b) => b.year - a.year);
