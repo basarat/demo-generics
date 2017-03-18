@@ -46,11 +46,27 @@ console.log(foo);
 It gets sorted with unexpected results. Essentially as far as the comparison behaviour is concerned it is the same as 
 
 ```js
-const foo = [1, 3, 22].map(x => x.toString());
-console.log(foo);
+const foo = [1, 3, 22];
+foo.sort();
+console.log(foo.map(x => x.toString());
 ```
+
 And you can see that alphabetically the string `20` should come before `3` just like in the dictionary "aa" will come before "b"
 
-* To properly compare anything other than strings or even sorting in more than.
+* To properly compare anything other than strings you should pass in a comparer function to the sort method. 
+* The comparer function will be requested to compare any two values from the array as needed by the builtin sorting algorithm. 
+* It should return a negative number if a is less than b 
+* It should return 0 if they are equal 
+* Or it should return a positive number if a is greater than b.
+
+* All of these requirements can be met for JavaScript numbers by simply returning the expression `a - b`.
+
+```js
+const foo = [1, 3, 22];
+foo.sort((a,b) => a - b);
+console.log(foo);
+```
+
+TODO: ascending vs. descending.
 
 As a footnote the implementatation of the sort algorithm is left open to the implementing but all browsers implement it using algorithms like mergesort and quicksort that have NLogN asymptomatic times on average.
