@@ -35,10 +35,22 @@ const copy = arr.slice().sort();
 console.log({arr, copy});
 ```
 
-* The second word of caution with the builtin sort method is that it uses `toString` on each item in the absence of a comparer function.
+* The second word of caution with the builtin sort method is that it uses `toString` on each item. e.g. if we have an array of numbers
 
 ```js
-
+const foo = [1, 3, 22];
+foo.sort();
+console.log(foo);
 ```
+
+It gets sorted with unexpected results. Essentially as far as the comparison behaviour is concerned it is the same as 
+
+```js
+const foo = [1, 3, 22].map(x => x.toString());
+console.log(foo);
+```
+And you can see that alphabetically the string `20` should come before `3` just like in the dictionary "aa" will come before "b"
+
+* To properly compare anything other than strings or even sorting in more than.
 
 As a footnote the implementatation of the sort algorithm is left open to the implementing but all browsers implement it using algorithms like mergesort and quicksort that have NLogN asymptomatic times on average.
