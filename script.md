@@ -1,5 +1,5 @@
 # Sorting arrays in TypeScript
-> In this lesson we cover all the details of how to sort a list of items using TypeScript.
+> In this lesson we cover all the details of how to sort a list of items using TypeScript. We also present a few tricks to make your sort logic more readable and maintainable using TypeScript.
 
 Each array in JavaScript has a sort method which is designed to sort the array.
 
