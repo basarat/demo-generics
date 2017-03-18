@@ -6,7 +6,8 @@
   "main": "lib/index.js",
   "typings": "lib",
   "scripts": {
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "resume": "git add . && git commit -m 'push' && git pull --rebase && git push"
   },
   "keywords": [],
   "author": "",
