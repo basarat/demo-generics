@@ -68,5 +68,7 @@ console.log(foo);
 ```
 
 TODO: ascending vs. descending.
+TODO: Sort objects. Movies by date.
+TODO: Sort case insensitivity.
 
 As a footnote the implementatation of the sort algorithm is left open to the implementing but all browsers implement it using algorithms like mergesort and quicksort that have NLogN asymptomatic times on average.
