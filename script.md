@@ -15,18 +15,18 @@ console.log(arr);
 ```
 
 There are two big words of caution with the built in method.
-* 1 it mutates the array.
+* One, is that it mutates the array and returns it. This catches new developers off guard who think that `sort` doesn't mutate the original array as it returns a copy.
 
 ```js
 const arr = ['foo','bar'];
 const copy = arr.sort();
 console.log(arr);
 ```
-You will sadly code like this (the copy) is many beginner JavaScript code bases.
-*  Fortunately with TypeScript you can fix it by annotating the array as a ReadOnly array of string.
-*  And now any mutating methods like this `sort` method will no longer be allowed.
-* You can now fix it easily by creating a copy of the array using array prototype slice.
-* And now the original array remains intact as people do array mutations.
+You will sadly code like this (the copy) is many beginner authored JavaScript code bases.
+*  Fortunately with TypeScript you can fix such code bases easily by annotating the array as a ReadOnly array of strings.
+*  And now any mutating methods like this `sort` method will no longer be allowed on this array.
+* You can now fix it easily by creating a copy of the array using array prototype slice and then calling sort.
+* And now the original array remains intact when we sort the copied array.
 
 ```js
 const arr: ReadonlyArray<string> = ['foo', 'bar'];
@@ -34,7 +34,7 @@ const copy = arr.slice().sort();
 console.log({arr, copy});
 ```
 
-* The second word of caution with the builtin sort method is that it uses `toString` on each item. e.g. if we have an array of numbers
+* The second word of caution with the builtin sort method is that by default it uses string unicode code points to sort the items. e.g. if we have an array of numbers
 
 ```js
 const foo = [1, 3, 22];
@@ -81,7 +81,7 @@ console.log(foo);
 
 So you will normally find this in conventional JavaScript code bases.
 
-Now that we know how to sort numbers and strings lets cover how to sort more complex object. e.g. here we have a list of top movies along with their date of release
+Now that we know how to sort numbers and strings lets cover how to sort more complex objects. e.g. here we have a list of top movies along with their date of release
 ```js
 const movies = [
   {
@@ -109,11 +109,12 @@ console.log(movies.map(movie => movie.name));
 ```
 And you can see that it works as expected.
 
-* To sort items in descending order you can just swap your logic in the comparer function :
+* To sort items in descending order you simply swap the order between the first and second values in the comparer function :
 
 ```js
 movies.sort((a,b) => b.year - a.year);
 console.log(movies);
 ```
+Swapping these in the parameter clues in the code reviewer to your decending order intent.
 
-As a footnote the implementatation of the sort algorithm (_highlight the sort function_) is left open to the implementing runtime. All browsers implement it using algorithms like mergesort and quicksort that have O(n * log(n)) asymptomatic times on average.
+One final thing worth mentioning is that the implementatation of the sort algorithm (_highlight the sort function_) is left open to the implementing runtime. All browsers implement it using algorithms that have an O(n * log(n)) average asymptotic runtime.
