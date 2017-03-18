@@ -1,6 +1,5 @@
-# Sorting items in TypeScript
-> In this lesson we cover how to sort items using TypeScript.
-
+# Sorting arrays in TypeScript
+> In this lesson we cover all the details of how to sort a list of items using TypeScript.
 
 Each array in JavaScript has a sort method.
 
@@ -67,8 +66,39 @@ foo.sort((a,b) => a - b);
 console.log(foo);
 ```
 
-TODO: ascending vs. descending.
-TODO: Sort objects. Movies by date.
-TODO: Sort case insensitivity.
+Now that we know how to sort numbers and strings lets cover how to sort complex object. e.g. here we have a list of top movies along with their date of release
+```js
+const movies = [
+  {
+    name: 'The Shawshank Redemption',
+    year: 1994,
+  },
+  {
+    name: 'The Godfather',
+    year: 1972,
+  },
+  {
+    name: 'The Godfather: Part II',
+    year: 1974,
+  },
+  {
+    name: 'The Dark Knight',
+    year: 2008,
+  },
+]
+```
+We can sort these by the year by comparing the years in the sort function
+```js
+movies.sort((a,b) => a.year - b.year);
+console.log(movies);
+```
+And you can see that it works as expected.
 
-As a footnote the implementatation of the sort algorithm is left open to the implementing but all browsers implement it using algorithms like mergesort and quicksort that have NLogN asymptomatic times on average.
+* To sort items in descending order you can just swap your logic in the comparer function : 
+
+```js
+movies.sort((a,b) => b.year - a.year);
+console.log(movies);
+```
+
+As a footnote the implementatation of the sort algorithm (_highlight the sort function_) is left open to the implementing runtime. All browsers implement it using algorithms like mergesort and quicksort that have O(n * log(n)) asymptomatic times on average.
