@@ -15,3 +15,7 @@ class Queue {
 * A method to pop an existing item from the queue
 
 An issue with this implementation is that you can push a variable of any type on to the queue and pop anything
+
+
+> Note the constraint is there even if your language is untyped. But in this case it's implicit, you have to figure out a way to explain it to the user and there is no meaningful way for tools to use this knowledge and enforce these constraints.
+
