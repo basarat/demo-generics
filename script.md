@@ -43,8 +43,36 @@ queue.push(0);
 queue.push("1"); // ERROR
 ```
 
-> Of course this can quickly become painful e.g. if you want a string queue you have to go through all that effort again.
+* Of course this can quickly become painful e.g. if you want a string queue you have to go through all that effort again (highlight the NumberQueue class).
+
+* What you really want is a way to say that whatever the type of stuff we push, is the same as the type of stuff we pop. (highlight push and highlight pop).
+
+This is why programming languages need generics, to allow you to specify such constraints at compile time.
+
+* We add a generic parameter to the Queue class. You are free to call it whatever you want. 
+* We constrain the items passed to push 
+* and the values that are returned from pop
+
+```js
+class Queue<TValue> {
+  private data = [];
+  push = (item: TValue) => this.data.push(item);
+  pop = (): TValue => this.data.shift();
+}
+```
+
+Note the constraint was there even when we left it untyped like raw JS. But in that case it's implicit, you have to figure out a way to explain it to the user and there is no meaningful way for tools to use that knowledge. Here TypeScript can enforce these constraints.
 
 
-> Note the constraint is there even if your language is untyped. But in this case it's implicit, you have to figure out a way to explain it to the user and there is no meaningful way for tools to use this knowledge and enforce these constraints.
+The usefullness of generics shines even you have object literals and can prevent typos e.g. 
+* Here I have a names queue where each item has a `name` property
+* I can push an object that has the name property. 
+* However if I try to push something that doesn't conform to the name object due to a typo I get a compiler error.
+
+```js
+const names = new Queue<{name:string>();
+names.push({name: 'hello'});
+names.push({neme: 'world'});
+```
+Bugs like this can be hard to track down but with generics you can offload that work to the compiler.
 
