@@ -94,5 +94,5 @@ const reversed = reverse(objects);
 * TypeScript knows that the reversed array is also an array of similar objects. (show quick info on reversed)
 * And will complain if you push an invalid item e.g. a typo in the name property
 ```js
-revsered.push({neme: ''});
+reversed.push({neme: ''});
 ```
