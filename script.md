@@ -85,9 +85,14 @@ function reverse<T>(items: T[]): T[] {
   return items.slice().reverse();
 }
 ```
-* Now if we use this function on an array of numbers
+* Now if we use this function on an array of objects
 
 ```js
-const reversed = reverse([1,2,3]);
+const objects = [{name: 'world'}, {name: 'hello'}];
+const reversed = reverse(objects);
 ```
-TypeScript knows that the reversed array is also an array of numbers.
+* TypeScript knows that the reversed array is also an array of similar objects. (show quick info on reversed)
+* And will complain if you push an invalid item e.g. a typo in the name property
+```js
+revsered.push({neme: ''});
+```
