@@ -1,4 +1,4 @@
-# Generic classes using TypeScript
+# Generics using TypeScript
 > In this lesson we cover the key reason why programming languages need generics. We then show all the ways to use them effectively with TypeScript.
 
 Consider a simple class that implements the Queue data structure 
@@ -70,9 +70,24 @@ The usefullness of generics shines even you have object literals and can prevent
 * However if I try to push something that doesn't conform to the name object due to a typo I get a compiler error.
 
 ```js
-const names = new Queue<{name:string>();
+const names = new Queue<{name:string}>();
 names.push({name: 'hello'});
 names.push({neme: 'world'});
 ```
 Bugs like this can be hard to track down but with generics you can offload that work to the compiler.
 
+You can also use generics to contrain members of a simple function e.g. 
+* a reverse function for an array `T` will also return an array of `T`
+* within the function we simply clone the array using `slice` and return the reversed version of the cloned array.
+
+```js
+function reverse<T>(items: T[]): T[] {
+  return items.slice().reverse();
+}
+```
+* Now if we use this function on an array of numbers
+
+```js
+const reversed = reverse([1,2,3]);
+```
+TypeScript knows that the reversed array is also an array of numbers.
