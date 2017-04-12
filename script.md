@@ -1,7 +1,7 @@
 # Generics using TypeScript
 > In this lesson we cover the key reason why programming languages need generics. We then show how use them effectively with TypeScript.
 
-Consider a simple class that implements the Queue data structure 
+Consider a simple class that implements the Queue data structure
 
 ```js
 class Queue {
@@ -11,10 +11,12 @@ class Queue {
 }
 ```
 * It has an array where it stores the data
-* A method to push a new item into the queue 
+* A method to push a new item into the queue
 * A method to pop an existing item from the queue
 
-An issue with this implementation is that you can push a variable of any type on to the queue and pop anything
+* An issue with this implementation is that you can push a variable of any type on to the queue.
+* Later on when you pop an item, it might not have a consistent type.
+* Of course the bug here was pushing a string instead of a number.
 
 ```js
 const queue = new Queue();
@@ -26,7 +28,7 @@ console.log(queue.pop().toPrecision(1));
 console.log(queue.pop().toPrecision(1)); // RUNTIME ERROR
 ```
 
-One solution (and in fact the only solution for languages that don't support generics) is to go ahead and create special classes just for these contraints. e.g. a quick and dirty number queue
+One solution (and in fact the only solution for languages that don't support generics) is to go ahead and create special classes just for these constraints. e.g. a quick and dirty number queue
 
 ```js
 class NumberQueue extends Queue {
@@ -35,7 +37,7 @@ class NumberQueue extends Queue {
 }
 ```
 
-And now a user of your data structure will be limited to the correct data type: 
+And now a user of your data structure will be limited to the correct data type:
 
 ```js
 const queue = new NumberQueue();
@@ -49,13 +51,13 @@ queue.push("1"); // ERROR
 
 This is why programming languages need generics, to allow you to specify such constraints at compile time.
 
-* We add a generic parameter to the Queue class. You are free to call it whatever you want. 
-* We constrain the items passed to push 
+* We add a generic parameter to the Queue class. You are free to call it whatever you want, we will just call it TValue to indicate its the type of the value.
+* We constrain the items passed to push
 * and the values that are returned from pop
 
 ```js
 class Queue<TValue> {
-  private data = [];
+  protected data = [];
   push = (item: TValue) => this.data.push(item);
   pop = (): TValue => this.data.shift();
 }
@@ -63,10 +65,9 @@ class Queue<TValue> {
 
 Note the constraint was there even when we left it untyped like raw JS. But in that case it's implicit, you have to figure out a way to explain it to the user and there is no meaningful way for tools to use that knowledge. Here TypeScript can enforce these constraints.
 
-
-The usefullness of generics shines even you have object literals and can prevent typos e.g. 
+The usefullness of generics shines even when you have object literals and can prevent typos e.g.
 * Here I have a names queue where each item has a `name` property
-* I can push an object that has the name property. 
+* I can push an object that has the name property.
 * However if I try to push something that doesn't conform to the name object due to a typo I get a compiler error.
 
 ```js
@@ -76,7 +77,7 @@ names.push({neme: 'world'});
 ```
 Bugs like this can be hard to track down but with generics you can offload that work to the compiler.
 
-You can also use generics to contrain members of a simple function e.g. 
+You can also use generics to constrain members of a simple function e.g.
 * a reverse function for an array `T` will also return an array of `T`
 * within the function we simply clone the array using `slice` and return the reversed version of the cloned array.
 
@@ -98,5 +99,5 @@ reversed.push({neme: ''}); // ERROR
 ```
 Or read an invalid property
 ```js
-reversed.pop().neme; // ERROR 
+reversed.pop().neme; // ERROR
 ```
