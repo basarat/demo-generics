@@ -23,7 +23,7 @@ const queue = new Queue();
 queue.push(0);
 queue.push("1"); // opps a mistake!
 
-// later
+/** later */
 console.log(queue.pop().toPrecision(1));
 console.log(queue.pop().toPrecision(1)); // Runtime error!
 ```
