@@ -21,11 +21,11 @@ class Queue {
 ```js
 const queue = new Queue();
 queue.push(0);
-queue.push("1"); // Ops a mistake
+queue.push("1"); // opps a mistake!
 
 // later
 console.log(queue.pop().toPrecision(1));
-console.log(queue.pop().toPrecision(1)); // RUNTIME ERROR
+console.log(queue.pop().toPrecision(1)); // Runtime error!
 ```
 
 One solution (and in fact the only solution for languages that don't support generics) is to go ahead and create special classes just for these constraints. e.g. a quick and dirty number queue
