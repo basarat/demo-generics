@@ -1,5 +1,5 @@
 # Generics using TypeScript
-> In this lesson we cover the key reason why programming languages need generics. We then show how use them effectively with TypeScript.
+> In this lesson we cover the key reason why programming languages need generics. We then show how use them effectively with TypeScript. We show plenty of examples where generics prevent common programming mistakes.
 
 Consider a simple class that implements the Queue data structure
 
@@ -99,7 +99,7 @@ const reversed = reverse(objects);
 * Because of the generic constraint, TypeScript knows that the reversed array is also an array of similar objects.
 * So if you try to push an object with an invalid data structure you can get nice compiler error.
 
-```js 
+```js
 reversed.push({neme: ''}); // ERROR
 ```
 Similarly if you try to read an invalid property on a popped item you will get a compiler error.
