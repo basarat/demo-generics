@@ -6,8 +6,8 @@ Consider a simple class that implements the Queue data structure
 ```js
 class Queue {
   protected data = [];
-  push = (item) => this.data.push(item);
-  pop = () => this.data.shift();
+  push(item) { this.data.push(item) }
+  pop() { return this.data.shift() }
 }
 ```
 * It has an array where it stores the data
@@ -32,8 +32,8 @@ One solution (and in fact the only solution for languages that don't support gen
 
 ```js
 class NumberQueue extends Queue {
-  push = (item: number) => super.push(item);
-  pop = (): number => super.pop();
+  push(item: number) { super.push(item) }
+  pop(): number { return super.pop() }
 }
 ```
 
@@ -58,8 +58,8 @@ This is why programming languages need generics, to allow you to specify such co
 ```js
 class Queue<TValue> {
   protected data = [];
-  push = (item: TValue) => this.data.push(item);
-  pop = (): TValue => this.data.shift();
+  push(item: TValue) { this.data.push(item) }
+  pop(): TValue { return this.data.shift() }
 }
 ```
 
